@@ -5,6 +5,12 @@ class Uwsgi < Formula
   homepage 'http://projects.unbit.it/uwsgi/'
   md5 'eab88c552e4c7c4ecb5188cdefc43390'
 
+  def patches
+    # Prevent the master process from closing all sockets before forking, instead, set FD_CLOEXEC
+    # See http://projects.unbit.it/hg/uwsgi/rev/e935214d385a
+    DATA
+  end
+
   def install
     # Find the arch for the Python we are building against.
     # We remove 'ppc' support, so we can pass Intel-optimized CFLAGS.
@@ -29,3 +35,21 @@ class Uwsgi < Formula
     EOS
   end
 end
+
+__END__
+diff --git a/uwsgi.c b/uwsgi.c
+index c73fc5f..727c74e 100644
+--- a/uwsgi.c
++++ b/uwsgi.c
+@@ -1368,7 +1368,11 @@ int main(int argc, char *argv[], char *envp[]) {
+ 					if (i == uwsgi.serverfd) {
+ 						continue;
+ 					}
++#ifdef __APPLE__
++					fcntl(i, F_SETFD, FD_CLOEXEC);  
++#else
+ 					close(i);
++#endif
+ 				}
+ 				if (uwsgi.serverfd != 3) {
+ 					if (dup2(uwsgi.serverfd, 3) < 0) {

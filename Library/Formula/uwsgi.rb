@@ -1,9 +1,9 @@
 require 'formula'
 
 class Uwsgi < Formula
-  url 'http://projects.unbit.it/downloads/uwsgi-0.9.6.2.tar.gz'
+  url 'http://projects.unbit.it/downloads/uwsgi-0.9.7.2.tar.gz'
   homepage 'http://projects.unbit.it/uwsgi/'
-  md5 'eab88c552e4c7c4ecb5188cdefc43390'
+  md5 '9bdf8ed5c8b32ace085dbd0f9488f880'
 
   def patches
     # Prevent the master process from closing all sockets before forking, instead, set FD_CLOEXEC
@@ -37,19 +37,18 @@ class Uwsgi < Formula
 end
 
 __END__
-diff --git a/uwsgi.c b/uwsgi.c
-index c73fc5f..727c74e 100644
---- a/uwsgi.c
-+++ b/uwsgi.c
-@@ -1368,7 +1368,11 @@ int main(int argc, char *argv[], char *envp[]) {
- 					if (i == uwsgi.serverfd) {
- 						continue;
+diff --git a/master.c b/master.c
+index 7e6f2f3..e71d72f 100644
+--- a/master.c
++++ b/master.c
+@@ -438,7 +438,11 @@ void master_loop(char **argv, char **environ) {
  					}
+ 				}
+ 				if (!found) {
 +#ifdef __APPLE__
-+					fcntl(i, F_SETFD, FD_CLOEXEC);  
++					fcntl(i, F_SETFD, FD_CLOEXEC);
 +#else
  					close(i);
 +#endif
  				}
- 				if (uwsgi.serverfd != 3) {
- 					if (dup2(uwsgi.serverfd, 3) < 0) {
+ 			}

@@ -52,3 +52,26 @@ index 7e6f2f3..e71d72f 100644
 +#endif
  				}
  			}
+
+diff --git a/plugins/python/uwsgi_pymodule.c b/plugins/python/uwsgi_pymodule.c
+--- a/plugins/python/uwsgi_pymodule.c
++++ b/plugins/python/uwsgi_pymodule.c
+@@ -2182,7 +2182,6 @@
+ 
+	pid_t grunt_pid;
+	int i;
+-	struct wsgi_request *wsgi_req = current_wsgi_req();
+ 
+	if (uwsgi.grunt) {
+		uwsgi_log("spawning a grunt from worker %d (pid :%d)...\n", uwsgi.mywid, uwsgi.mypid);
+@@ -2218,10 +2217,6 @@
+		return Py_True;
+	}
+ 
+-	// close connection on the worker
+-	fclose(wsgi_req->async_post);
+-	wsgi_req->fd_closed = 1;
+-
+       clear:
+	Py_INCREF(Py_None);
+	return Py_None;

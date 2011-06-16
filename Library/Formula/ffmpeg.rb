@@ -1,11 +1,11 @@
 require 'formula'
 
 class Ffmpeg < Formula
-  url 'http://ffmpeg.org/releases/ffmpeg-0.6.2.tar.bz2'
+  url 'http://ffmpeg.org/releases/ffmpeg-0.6.3.tar.bz2'
   homepage 'http://ffmpeg.org/'
-  sha1 'd4e464d4111971b9cef10be7a1efa3677a899338'
+  sha1 '25dd82e8a3627a1a9d4464e15685720215fecb3c'
 
-  head 'git://git.videolan.org/ffmpeg.git'
+  head 'git://git.videolan.org/ffmpeg.git', :tag => '73a502dd436425875fae1305d47cf0c1fbf24d68'
 
   depends_on 'x264' => :optional
   depends_on 'faac' => :optional
@@ -58,6 +58,8 @@ class Ffmpeg < Formula
     write_version_file if ARGV.build_head?
 
     system "make install"
+    system "make tools/qt-faststart"
+    bin.install ["tools/qt-faststart"]
   end
 
   # Makefile expects to run in git repo and generate a version number

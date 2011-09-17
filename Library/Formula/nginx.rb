@@ -130,13 +130,13 @@ end # class Nginx
 
 class Nginx
   homepage 'http://nginx.org/'
-  url 'http://nginx.org/download/nginx-1.0.5.tar.gz'
-  head 'http://nginx.org/download/nginx-1.1.0.tar.gz'
+  url 'http://nginx.org/download/nginx-1.1.3.tar.gz'
+  head 'http://nginx.org/download/nginx-1.1.3.tar.gz'
 
   unless ARGV.build_head?
-    md5 '373c7761a7c682b92b164c8ee3d6d243'
+    md5 '3aa027ee3aabf1a5ae6e4a3bbd09efda'
   else
-    md5 '3381f34eafc755f935a2d94148500505'
+    md5 '3aa027ee3aabf1a5ae6e4a3bbd09efda'
   end
 
   depends_on 'pcre'

@@ -1,9 +1,9 @@
 require 'formula'
 
 class Stunnel < Formula
-  url 'ftp://ftp.stunnel.org/stunnel/stunnel-4.41.tar.gz'
+  url 'ftp://ftp.stunnel.org/stunnel/stunnel-4.43.tar.gz'
   homepage 'http://www.stunnel.org/'
-  md5 '1ce3c7c491cabbda713af6ed6caf13f0'
+  md5 '84174925a0f2632cc5cd52b3503cf07b'
 
   # This patch installs a bogus .pem in lieu of interactive cert generation.
   def patches

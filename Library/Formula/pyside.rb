@@ -10,8 +10,8 @@ end
 
 class Pyside < Formula
   homepage 'http://www.pyside.org'
-  url 'http://www.pyside.org/files/pyside-qt4.7+1.0.6.tar.bz2'
-  md5 '6773cdd7c594f5bc314541d8cfb70256'
+  url 'http://www.pyside.org/files/pyside-qt4.7+1.0.9.tar.bz2'
+  md5 '63d1104cf245d9eea307434c94e15443'
 
   depends_on 'cmake' => :build
 

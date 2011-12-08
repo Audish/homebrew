@@ -2,6 +2,7 @@ require 'formula'
 
 class Libiconv < Formula
   url 'http://ftpmirror.gnu.org/libiconv/libiconv-1.14.tar.gz'
+  mirror 'http://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz'
   homepage 'http://www.gnu.org/software/libiconv/'
   md5 'e34509b1623cec449dfeb73d7ce9c6c6'
 
@@ -18,7 +19,12 @@ class Libiconv < Formula
     ]}
   end
 
+  def options
+    [[ '--universal', 'Build a universal library.' ]]
+  end
+
   def install
+    ENV.universal_binary if ARGV.build_universal?
     ENV.j1
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
